@@ -46,6 +46,7 @@ function askShape() {
           break;
       }
       shape.setColor(response.shapeColor);
+      shape.setText(response.character);
       console.log("set color");
       createFile("./logo.svg", shape.render());
     });
