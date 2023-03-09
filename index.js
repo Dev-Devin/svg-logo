@@ -14,8 +14,8 @@ function askShape() {
       },
       {
         type: "input",
-        message: "choose color",
-        name: "color",
+        message: "choose text color",
+        name: "textColor",
       },
       {
         type: "list",
@@ -31,5 +31,30 @@ function askShape() {
     ])
     .then((response) => {
       console.log("this is my response", response);
+      let shape;
+      switch (response.shapes) {
+        case "circle":
+          shape = new Circle();
+          break;
+
+        case "square":
+          shape = new Square();
+          break;
+
+        case "triangle":
+          shape = new Triangle();
+          break;
+      }
+      shape.setColor(response.shapeColor);
+      console.log("set color");
+      createFile("./logo.svg", shape.render());
     });
+}
+
+askShape();
+
+function createFile(fileName, data) {
+  fs.writeFile(fileName, data, (err) =>
+    err ? console.log(err) : console.log("Successfully created SVG logo!")
+  );
 }
